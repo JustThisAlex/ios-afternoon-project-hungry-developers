@@ -3,11 +3,15 @@ import UIKit
 // I didn't really get, what the methods should do?
 
 class Spoon {
+    let index: Int
     func pickUp() {
         
     }
     func putDown() {
         
+    }
+    init(index: Int) {
+        self.index = index
     }
 }
 
@@ -18,8 +22,9 @@ class Developer {
     
     func think() {
         lock.lock()
-        leftSpoon?.pickUp()
-        rightSpoon?.pickUp()
+        guard let lindex = leftSpoon?.index, let rindex = rightSpoon?.index else { return }
+        if lindex > rindex { rightSpoon?.pickUp() }
+        else { leftSpoon?.pickUp() }
     }
     func eat() {
         usleep(useconds_t(Int.random(in: 1...10000000)))
@@ -36,7 +41,7 @@ class Developer {
 }
 
 var developers = [Developer(), Developer(), Developer(), Developer(), Developer()]
-var spoons = [Spoon(), Spoon(), Spoon(), Spoon(), Spoon()]
+var spoons = [Spoon(index: 0), Spoon(index: 1), Spoon(index: 2), Spoon(index: 3), Spoon(index: 4)]
 let i = 0
 developers[0].leftSpoon = spoons[4]
 developers[0].rightSpoon = spoons[0]
