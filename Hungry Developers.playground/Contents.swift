@@ -23,8 +23,8 @@ class Developer {
     func think() {
         lock.lock()
         guard let lindex = leftSpoon?.index, let rindex = rightSpoon?.index else { return }
-        if lindex > rindex { rightSpoon?.pickUp() }
-        else { leftSpoon?.pickUp() }
+        if lindex > rindex { rightSpoon?.pickUp(); leftSpoon?.pickUp() }
+        else { leftSpoon?.pickUp(); rightSpoon?.pickUp() }
     }
     func eat() {
         usleep(useconds_t(Int.random(in: 1...10000000)))
